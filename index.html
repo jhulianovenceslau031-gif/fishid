@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerfilFinder — Conheça e Descubra Perfis</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-id-card"></i>
+            <span>Perfil<span>Finder</span></span>
+        </div>
+        <p>Descubra e explore detalhes fascinantes sobre pessoas!</p>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container">
+        
+        <!-- FORMULÁRIO DE CADASTRO / EDIÇÃO -->
+        <section class="card form-card">
+            <h2><i class="fa-solid fa-user-pen"></i> Cadastrar / Atualizar Perfil</h2>
+            <form id="perfilForm">
+                <div class="input-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Ex: Carlos Silva" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="idade">Idade (Anos)</label>
+                        <input type="number" id="idade" placeholder="Ex: 28" min="0" max="120" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="estadoCivil">Estado Civil</label>
+                        <select id="estadoCivil" required>
+                            <option value="">Selecione...</option>
+                            <option value="Solteiro(a)">Solteiro(a)</option>
+                            <option value="Casado(a)">Casado(a)</option>
+                            <option value="Divorciado(a)">Divorciado(a)</option>
+                            <option value="Viúvo(a)">Viúvo(a)</option>
+                            <option value="Namorando / Em um relacionamento">Namorando</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="raca">Raça / Etnia</label>
+                        <input type="text" id="raca" placeholder="Ex: Branca, Parda, Negra, Indígena..." required>
+                    </div>
+                    <div class="input-group">
+                        <label for="corFavorita">Cor Favorita</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="corFavorita" value="#4f46e5">
+                            <span id="colorHexText">#4f46e5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="hobbies">Hobbies / Paixões <small>(separados por vírgula)</small></label>
+                    <input type="text" id="hobbies" placeholder="Ex: Ler, Tocar Violão, Viajar, Futebol" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="bio">Biografia / Sobre a Pessoa</label>
+                    <textarea id="bio" rows="3" placeholder="Conte um pouco melhor sobre a personalidade, gostos ou história..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Perfil Completo</button>
+            </form>
+        </section>
+
+        <!-- ÁREA DE EXIBIÇÃO DO CARTÃO DE PERFIL -->
+        <section class="card display-card" id="displaySection">
+            <div class="placeholder-msg">
+                <i class="fa-solid fa-address-card"></i>
+                <p>Preencha o formulário ao lado e clique em "Gerar Perfil Completo" para ver o resultado interativo!</p>
+            </div>
+
+            <!-- PERFIL GERADO (Oculto inicialmente) -->
+            <div id="perfilContent" class="hidden">
+                <div class="profile-header-banner" id="profileBanner">
+                    <div class="avatar-circle" id="profileAvatar">CS</div>
+                    <h3 id="resNome">Nome da Pessoa</h3>
+                    <span class="badge" id="resEstadoCivil">Solteiro(a)</span>
+                </div>
+
+                <div class="profile-body">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <i class="fa-solid fa-cake-candles"></i>
+                            <div>
+                                <span class="label">Idade</span>
+                                <strong id="resIdade">0 anos</strong>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <div>
+                                <span class="label">Raça / Etnia</span>
+                                <strong id="resRaca">-</strong>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-palette"></i>
+                            <div>
+                                <span class="label">Cor Favorita</span>
+                                <div class="color-indicator">
+                                    <span id="resCorBox" class="color-box"></span>
+                                    <strong id="resCorText">#000</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-block">
+                        <h4><i class="fa-solid fa-heart"></i> Hobbies & Interesses</h4>
+                        <div class="tags-container" id="resHobbies">
+                            <!-- Inserido dinamicamente via JS -->
+                        </div>
+                    </div>
+
+                    <div class="section-block">
+                        <h4><i class="fa-solid fa-book-open"></i> Sobre / Biografia</h4>
+                        <p id="resBio" class="bio-text">Aqui aparecerá a descrição detalhada...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2026 PerfilFinder — Criador Automático de Sites. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
