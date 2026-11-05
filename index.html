@@ -1,148 +1,177 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PerfilFinder — Conheça e Descubra Perfis</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FishID - Identificador Inteligente de Peixes</title>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- CABEÇALHO -->
-    <header>
-        <div class="logo">
-            <i class="fa-solid fa-id-card"></i>
-            <span>Perfil<span>Finder</span></span>
-        </div>
-        <p>Descubra e explore detalhes fascinantes sobre pessoas!</p>
-    </header>
+  <!-- CABEÇALHO -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand">
+        <i class="fa-solid fa-fish-fins logo-icon"></i>
+        <span>Fish<strong class="highlight">ID</strong></span>
+      </a>
+      <nav>
+        <a href="#scanner"><i class="fa-solid fa-camera"></i> Scanner</a>
+        <a href="#guia"><i class="fa-solid fa-book-open"></i> Guia</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="container">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container hero-content">
+      <span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> IA para Pescadores</span>
+      <h1>Descubra Tudo sobre o Peixe com Apenas Uma Foto</h1>
+      <p>Envie a imagem da sua captura e descubra instantaneamente a espécie, hábitos alimentares, isca ideal e os melhores horários para pescar.</p>
+    </div>
+  </section>
+
+  <!-- SCANNER SECTION -->
+  <section id="scanner" class="container scanner-section">
+    <div class="card upload-card">
+      <h2><i class="fa-solid fa-expand"></i> Scanner de Peixe</h2>
+      <p class="subtitle">Faça upload de uma foto ou selecione uma imagem de exemplo para testar</p>
+
+      <!-- Dropzone -->
+      <div id="dropzone" class="dropzone">
+        <input type="file" id="fileInput" accept="image/*" hidden>
         
-        <!-- FORMULÁRIO DE CADASTRO / EDIÇÃO -->
-        <section class="card form-card">
-            <h2><i class="fa-solid fa-user-pen"></i> Cadastrar / Atualizar Perfil</h2>
-            <form id="perfilForm">
-                <div class="input-group">
-                    <label for="nome">Nome Completo</label>
-                    <input type="text" id="nome" placeholder="Ex: Carlos Silva" required>
-                </div>
+        <div id="dropzoneContent" class="dropzone-text">
+          <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+          <h3>Arraste e solte a foto do peixe aqui</h3>
+          <p>ou clique para escolher um arquivo do seu dispositivo</p>
+          <span class="file-limits">Suporta JPG, PNG, WEBP</span>
+        </div>
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="idade">Idade (Anos)</label>
-                        <input type="number" id="idade" placeholder="Ex: 28" min="0" max="120" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="estadoCivil">Estado Civil</label>
-                        <select id="estadoCivil" required>
-                            <option value="">Selecione...</option>
-                            <option value="Solteiro(a)">Solteiro(a)</option>
-                            <option value="Casado(a)">Casado(a)</option>
-                            <option value="Divorciado(a)">Divorciado(a)</option>
-                            <option value="Viúvo(a)">Viúvo(a)</option>
-                            <option value="Namorando / Em um relacionamento">Namorando</option>
-                        </select>
-                    </div>
-                </div>
+        <!-- Preview da Imagem -->
+        <div id="previewContainer" class="preview-container hidden">
+          <img id="imagePreview" src="" alt="Peixe Enviado">
+          <div id="scannerBar" class="scanner-bar hidden"></div>
+        </div>
+      </div>
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="raca">Raça / Etnia</label>
-                        <input type="text" id="raca" placeholder="Ex: Branca, Parda, Negra, Indígena..." required>
-                    </div>
-                    <div class="input-group">
-                        <label for="corFavorita">Cor Favorita</label>
-                        <div class="color-picker-wrapper">
-                            <input type="color" id="corFavorita" value="#4f46e5">
-                            <span id="colorHexText">#4f46e5</span>
-                        </div>
-                    </div>
-                </div>
+      <div class="action-buttons">
+        <button id="btnScan" class="btn btn-primary" disabled>
+          <i class="fa-solid fa-microchip"></i> Identificar Peixe
+        </button>
+        <button id="btnReset" class="btn btn-secondary hidden">
+          <i class="fa-solid fa-rotate-right"></i> Nova Análise
+        </button>
+      </div>
 
-                <div class="input-group">
-                    <label for="hobbies">Hobbies / Paixões <small>(separados por vírgula)</small></label>
-                    <input type="text" id="hobbies" placeholder="Ex: Ler, Tocar Violão, Viajar, Futebol" required>
-                </div>
+      <!-- Exemplos Rápidos -->
+      <div class="quick-test">
+        <p>Ou escolha um exemplo pronto para testar:</p>
+        <div class="test-buttons">
+          <button class="btn-sample" data-sample="tucunare">Tucunaré</button>
+          <button class="btn-sample" data-sample="tambaqui">Tambaqui</button>
+          <button class="btn-sample" data-sample="dourado">Dourado</button>
+          <button class="btn-sample" data-sample="tilapia">Tilápia</button>
+          <button class="btn-sample" data-sample="robalo">Robalo</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                <div class="input-group">
-                    <label for="bio">Biografia / Sobre a Pessoa</label>
-                    <textarea id="bio" rows="3" placeholder="Conte um pouco melhor sobre a personalidade, gostos ou história..." required></textarea>
-                </div>
+  <!-- RESULTADOS SECTION -->
+  <section id="resultSection" class="container hidden">
+    <div class="card result-card">
+      <div class="result-header">
+        <div>
+          <span class="confidence-tag"><i class="fa-solid fa-circle-check"></i> Precisão de IA: <strong id="confidenceScore">98%</strong></span>
+          <h2 id="fishName">Nome do Peixe</h2>
+          <p id="scientificName" class="scientific-name">Nome Científico</p>
+        </div>
+        <div id="socialBadge" class="social-badge">
+          <i class="fa-solid fa-users"></i> Em Cardume
+        </div>
+      </div>
 
-                <button type="submit" class="btn-submit"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Perfil Completo</button>
-            </form>
-        </section>
+      <p id="fishDescription" class="description-text"></p>
 
-        <!-- ÁREA DE EXIBIÇÃO DO CARTÃO DE PERFIL -->
-        <section class="card display-card" id="displaySection">
-            <div class="placeholder-msg">
-                <i class="fa-solid fa-address-card"></i>
-                <p>Preencha o formulário ao lado e clique em "Gerar Perfil Completo" para ver o resultado interativo!</p>
-            </div>
+      <div class="details-grid">
+        <!-- Origem -->
+        <div class="info-box">
+          <div class="info-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <div class="info-text">
+            <h4>Origem & Bacia</h4>
+            <p id="fishOrigin">-</p>
+          </div>
+        </div>
 
-            <!-- PERFIL GERADO (Oculto inicialmente) -->
-            <div id="perfilContent" class="hidden">
-                <div class="profile-header-banner" id="profileBanner">
-                    <div class="avatar-circle" id="profileAvatar">CS</div>
-                    <h3 id="resNome">Nome da Pessoa</h3>
-                    <span class="badge" id="resEstadoCivil">Solteiro(a)</span>
-                </div>
+        <!-- Alimentação -->
+        <div class="info-box">
+          <div class="info-icon"><i class="fa-solid fa-utensils"></i></div>
+          <div class="info-text">
+            <h4>Dieta Alimentar</h4>
+            <p id="fishDiet">-</p>
+          </div>
+        </div>
 
-                <div class="profile-body">
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <i class="fa-solid fa-cake-candles"></i>
-                            <div>
-                                <span class="label">Idade</span>
-                                <strong id="resIdade">0 anos</strong>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-fingerprint"></i>
-                            <div>
-                                <span class="label">Raça / Etnia</span>
-                                <strong id="resRaca">-</strong>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-palette"></i>
-                            <div>
-                                <span class="label">Cor Favorita</span>
-                                <div class="color-indicator">
-                                    <span id="resCorBox" class="color-box"></span>
-                                    <strong id="resCorText">#000</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Tipo de Isca -->
+        <div class="info-box">
+          <div class="info-icon"><i class="fa-solid fa-hook"></i></div>
+          <div class="info-text">
+            <h4>Tipo de Isca</h4>
+            <p id="baitType">-</p>
+          </div>
+        </div>
 
-                    <div class="section-block">
-                        <h4><i class="fa-solid fa-heart"></i> Hobbies & Interesses</h4>
-                        <div class="tags-container" id="resHobbies">
-                            <!-- Inserido dinamicamente via JS -->
-                        </div>
-                    </div>
+        <!-- Melhores Iscas -->
+        <div class="info-box">
+          <div class="info-icon"><i class="fa-solid fa-worm"></i></div>
+          <div class="info-text">
+            <h4>Iscas Recomendadas</h4>
+            <p id="bestBaits">-</p>
+          </div>
+        </div>
 
-                    <div class="section-block">
-                        <h4><i class="fa-solid fa-book-open"></i> Sobre / Biografia</h4>
-                        <p id="resBio" class="bio-text">Aqui aparecerá a descrição detalhada...</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Melhor Horário -->
+        <div class="info-box">
+          <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+          <div class="info-text">
+            <h4>Melhor Horário</h4>
+            <p id="bestTime">-</p>
+          </div>
+        </div>
 
-    </main>
+        <!-- Época do Ano -->
+        <div class="info-box">
+          <div class="info-icon"><i class="fa-solid fa-calendar-days"></i></div>
+          <div class="info-text">
+            <h4>Época do Ano</h4>
+            <p id="bestSeason">-</p>
+          </div>
+        </div>
+      </div>
 
-    <!-- RODAPÉ -->
-    <footer>
-        <p>&copy; 2026 PerfilFinder — Criador Automático de Sites. Todos os direitos reservados.</p>
-    </footer>
+      <!-- Dica do Pescador -->
+      <div class="tip-box">
+        <i class="fa-solid fa-lightbulb"></i>
+        <div>
+          <strong>Dica Especial de Pesca:</strong>
+          <p id="fishingTip">-</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- RODAPÉ -->
+  <footer class="footer">
+    <div class="container">
+      <p><i class="fa-solid fa-fish-fins"></i> FishID &copy; 2026 - Guia do Pescador Inteligente.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
